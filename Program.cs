@@ -42,10 +42,24 @@ namespace QuickDiff
                         }
                     }
 
+                    //check back the other way
+                    currentLine = 0;
+                    while (!outputReader.EndOfStream && differentLine == -1)
+                    {
+                        currentLine++;
+                        string inputLine = outputReader.ReadLine();
+
+                        if (inputReader.EndOfStream || inputReader.ReadLine() != inputLine)
+                        {
+                            differentLine = currentLine;
+                            break;
+                        }
+                    }
+
                     if (differentLine == -1)
                     {
                         Console.ForegroundColor = ConsoleColor.Green;
-                   
+
                         Console.WriteLine("------SUCCESS!-----");
                     }
                     else
